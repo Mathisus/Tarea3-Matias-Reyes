@@ -96,6 +96,21 @@ void definirPrecedencia(TreeMap *mapa, char *nombreTarea, char* precedencia)
             return;
         }
 
+        pushBack(tarea_aux->lista_precedencia, tarea_precedente);
+        printf("Se ha definido la tarea %s como precedente de la tarea %s\n", tarea_precedente->nombre, tarea_aux->nombre);
+        system("pause");
+
         return;
+    }else{
+        puts("La tarea o la tarea precedente no se encuentran en el sistema, intente otra vez");
+        system("pause");
     }
+}
+
+void mostrar(Tarea* tarea)
+{
+    printf("Nombre: %s - Prioridad: %s \n", tarea->nombre, tarea->prioridad);
+    Tarea *precedenteAux = (Tarea *)firstList(tarea->lista_precedencia);
+
+    if("")
 }

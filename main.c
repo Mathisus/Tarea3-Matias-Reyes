@@ -50,9 +50,56 @@ int main()
         switch (opcion)
         {
         case 1:
-            /* code */
+            system("cls");
+
+            enter_value(nombreTarea, "Ingrese el nombre de la tarea");
+            enter_value(prioridad, "Ingrese la prioridad de la tarea");
+
+            agregarTarea(tareas, nombreTarea, prioridad);
+
+            puts("Tarea agregada con exito");
+
+            system("pause");
+            system("cls");
+            break;
+
+        case 2:
+            enter_value(nombreTarea, "Ingrese el nombre de la tarea");
+            enter_value(precedencia, "Ingrese la tarea de la cual depende");
+
+            definirPrecedencia(tareas, nombreTarea, precedencia);
+
+            break;
+
+        case 3:
+            system("cls");
+
+            mostrarTareasPendientes(tareas);
+
+            system("pause");
+            system("cls");
+            break;
+
+        case 4:
+            system("cls");
+
+            enter_value(nombreTarea, "Ingrese el nombre de la tarea");
+
+            tareaRealizada(tareas, nombreTarea);
+
+            system("pause");
+            system("cls");
             break;
         
+        case 5:
+            system("cls");
+
+            puts("Gracias por usar el programa");
+
+            system("pause");
+            system("cls");
+            break;
+
         default:
             break;
         }
