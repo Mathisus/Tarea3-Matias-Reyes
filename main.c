@@ -71,6 +71,9 @@ int main()
 
             definirPrecedencia(tareas, nombreTarea, precedencia);
 
+            system("pause");
+            system("cls");
+
             break;
 
         case 3:
@@ -78,7 +81,6 @@ int main()
 
             mostrarTareasPendientes(tareas);
 
-            system("pause");
             system("cls");
             break;
 
@@ -87,7 +89,7 @@ int main()
 
             enter_value(nombreTarea, "Ingrese el nombre de la tarea");
 
-            //tareaRealizada(tareas, nombreTarea);
+            tareaRealizada(tareas, nombreTarea);
 
             system("pause");
             system("cls");
@@ -96,7 +98,7 @@ int main()
         case 5:
 
             system("cls");
-            printf("Cerrando programa...\n");
+            printf("Cerrando programa... ^^\n");
             sleep(2);
             system("cls");
             exit(0);

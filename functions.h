@@ -20,4 +20,6 @@ void definirPrecedencia(TreeMap *mapa, char *nombreTarea, char* nombreTareaPrece
 
 void mostrarTareasPendientes(TreeMap *mapa);
 
+void tareaRealizada(TreeMap *mapa, char *nombreTarea);
+
 #endif
