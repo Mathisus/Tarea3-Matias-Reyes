@@ -22,15 +22,15 @@ void mostrar_menu()
 
 int esta_presente(TreeMap *mapa, char *nombreTarea)
 {
-    Tarea *current_task = (Tarea *)firstTreeMap(mapa);
+    Tarea *tareaActual = (Tarea *)firstTreeMap(mapa);
     
-    while (current_task != NULL)
+    while (tareaActual != NULL)
     {
-        if (strcmp(current_task->nombre, nombreTarea) == 0)
+        if (strcmp(tareaActual->nombre, nombreTarea) == 0)
         {
             return 1;
         }
-        current_task = (Tarea *)nextTreeMap(mapa);
+        tareaActual = (Tarea *)nextTreeMap(mapa);
     }
 
     return 0;
@@ -44,7 +44,6 @@ void agregarTarea(TreeMap *mapa, char *nombreTarea, char* prioridad)
     {
         system("cls");
         puts("La tarea ya se encuentra en el sistema, intente otra vez");
-
         system("pause");
     }
 
@@ -84,10 +83,10 @@ void definirPrecedencia(TreeMap *mapa, char *nombreTarea, char* precedencia)
 
     if (esta_presente(mapa, nombreTarea) == 1 || esta_presente(mapa, precedencia) == 1)
     {   
-        Tarea *tarea = buscar_tarea(mapa, nombreTarea);
+        Tarea *tareaAux = buscar_tarea(mapa, nombreTarea);
         Tarea *tarea_precedente = buscar_tarea(mapa, precedencia);
 
-        if (tarea == NULL || tarea_precedente == NULL)
+        if (tareaAux == NULL || tarea_precedente == NULL)
         {
             system("cls");
             puts("La tarea o la tarea precedente no se encuentran en el sistema, intente otra vez");
@@ -96,8 +95,8 @@ void definirPrecedencia(TreeMap *mapa, char *nombreTarea, char* precedencia)
             return;
         }
 
-        pushBack(tarea_aux->lista_precedencia, tarea_precedente);
-        printf("Se ha definido la tarea %s como precedente de la tarea %s\n", tarea_precedente->nombre, tarea_aux->nombre);
+        pushBack(tareaAux->lista_precedencia, tarea_precedente);
+        printf("Se ha definido la tarea %s como precedente de la tarea %s\n", tarea_precedente->nombre, tareaAux->nombre);
         system("pause");
 
         return;
@@ -112,5 +111,53 @@ void mostrar(Tarea* tarea)
     printf("Nombre: %s - Prioridad: %s \n", tarea->nombre, tarea->prioridad);
     Tarea *precedenteAux = (Tarea *)firstList(tarea->lista_precedencia);
 
-    if("")
+    while (precedenteAux != NULL)
+    {
+        printf("%s ", precedenteAux);
+        precedenteAux = (Tarea *)nextList(tarea->lista_precedencia);
+    }
+    printf("\n");
+    
+}
+
+void llenarLista(List *lista, TreeMap *mapa)
+{
+    Tarea *tarea_aux = (Tarea *)firstTreeMap(mapa);
+
+    while (tarea_aux != NULL)
+    {
+        pushBack(lista, tarea_aux);
+        tarea_aux = (Tarea *)nextTreeMap(mapa);
+    }
+}
+
+void mostrarTareasPendientes(TreeMap *mapa)
+{
+    Tarea *tarea_aux = (Tarea *)firstTreeMap(mapa);
+    List *ListaCompleta = createList();
+    llenarLista(ListaCompleta, mapa);
+
+    while (tarea_aux != NULL)
+    {
+        mostrar(tarea_aux);
+        tarea_aux = (Tarea *)nextTreeMap(mapa);
+    }
+
+
+    puts("No existen mas tareas pendientes");
+    system("pause");
+}
+
+void tareaRealizada(TreeMap *mapa, char *nombreTarea)
+{
+    Tarea *tarea_aux = (Tarea *)firstTreeMap(mapa);
+
+    while (tarea_aux != NULL)
+    {
+        if (strcmp(nombreTarea, tarea_aux->nombre) == 0)
+        {
+            return;
+        }
+        tarea_aux = (Tarea *)nextTreeMap(mapa);
+    }
 }
