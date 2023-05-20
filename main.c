@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
+#include "functions.h"
 #include "list.h"
 #include "treemap.h"
 #include <unistd.h>
@@ -85,25 +87,27 @@ int main()
 
             enter_value(nombreTarea, "Ingrese el nombre de la tarea");
 
-            tareaRealizada(tareas, nombreTarea);
+            //tareaRealizada(tareas, nombreTarea);
 
             system("pause");
             system("cls");
             break;
         
         case 5:
-            system("cls");
 
-            puts("Gracias por usar el programa");
-
-            system("pause");
             system("cls");
+            printf("Cerrando programa...\n");
+            sleep(2);
+            system("cls");
+            exit(0);
             break;
-
+            
         default:
             break;
         }
         
     }
+
+
 
 }

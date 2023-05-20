@@ -12,7 +12,7 @@ typedef struct
     List *lista_precedencia;
 } Tarea;
 
-void mostrarTarea();
+void mostrar_menu();
 
 void agregarTarea(TreeMap *mapa, char *nombreTarea, char* prioridad);
 

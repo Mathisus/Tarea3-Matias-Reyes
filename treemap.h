@@ -1,5 +1,5 @@
-#ifndef treemap.h
-#define treemap.h
+#ifndef treemap_h
+#define treemap_h
 
 // Estructuras de datos
 
