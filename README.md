@@ -6,7 +6,7 @@ Este es un programa de gestión de tareas que te permite agregar tareas, definir
 
 **Importante**
 
-*Para interactuar con el programa, abrir el archivo "tarea3.exe"
+*Para interactuar con el programa, compilar con el comando "gcc -g main.c treemap.c list.c functions.c -o tarea3" abrir el archivo "tarea3.exe"
 
 ---
 
