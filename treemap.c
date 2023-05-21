@@ -33,7 +33,7 @@ TreeMap *createTreeMap(int (*lower_than)(void *key1, void *key2)) {
 
   TreeMap *newTree = (TreeMap *)malloc(sizeof(TreeMap));
   newTree->root = NULL;
-  newTree->current = NULL;
+  newTree->actual = NULL;
 
   newTree->lower_than = lower_than;
 
@@ -52,26 +52,26 @@ void insertTreeMap(TreeMap *tree, void *key, void *value) {
   if (tree->root == NULL) {
     // Si el árbol está vacío, el nuevo nodo se convierte en la raíz
     tree->root = newNode;
-    tree->current = newNode;
+    tree->actual = newNode;
   } else {
-    TreeNode *currentNode = tree->root;
+    TreeNode *actualNode = tree->root;
     TreeNode *parent = NULL;
 
     // Recorrer el árbol para encontrar la ubicación adecuada para insertar el nuevo nodo
-    while (currentNode != NULL) {
-      parent = currentNode;
+    while (actualNode != NULL) {
+      parent = actualNode;
 
       // Si la clave ya existe, el nuevo nodo se convierte en el hijo izquierdo del nodo repetido
-      if (is_equal(tree, key, currentNode->pair->key)) {
+      if (is_equal(tree, key, actualNode->pair->key)) {
         newNode->parent = parent;
         parent->left = newNode;
         return;
-      } else if (tree->lower_than(key, currentNode->pair->key)) {
+      } else if (tree->lower_than(key, actualNode->pair->key)) {
         // Si la clave es menor que la clave actual, moverse hacia la izquierda
-        currentNode = currentNode->left;
+        actualNode = actualNode->left;
       } else {
         // Si la clave es mayor que la clave actual, moverse hacia la derecha
-        currentNode = currentNode->right;
+        actualNode = actualNode->right;
       }
     }
 
@@ -155,7 +155,7 @@ void eraseTreeMap(TreeMap *tree) {
   if (tree == NULL || tree->root == NULL)
     return;
 
-  TreeNode *node = tree->current;
+  TreeNode *node = tree->actual;
   if (node == NULL)
     return;
 
@@ -167,33 +167,33 @@ void* firstTreeMap(TreeMap *tree) {
     return NULL;
 
   // Encontrar el nodo más pequeño (el nodo izquierdo más profundo)
-  TreeNode *currentNode = minimum(tree->root);
+  TreeNode *actualNode = minimum(tree->root);
 
-  tree->current = currentNode;  // Establecer el nodo actual en el nodo más pequeño
-  return currentNode->pair->value;
+  tree->actual = actualNode;  // Establecer el nodo actual en el nodo más pequeño
+  return actualNode->pair->value;
 }
 
 void* nextTreeMap(TreeMap *tree) {
-  if (tree == NULL || tree->current == NULL)
+  if (tree == NULL || tree->actual == NULL)
     return NULL;
 
-  TreeNode *currentNode = tree->current;
+  TreeNode *actualNode = tree->actual;
 
   // Si el nodo tiene un hijo derecho, el siguiente valor es el nodo más pequeño en el subárbol derecho
-  if (currentNode->right != NULL) {
-    currentNode = minimum(currentNode->right);
-    tree->current = currentNode;  // Actualizar el nodo actual
-    return currentNode->pair->value;
+  if (actualNode->right != NULL) {
+    actualNode = minimum(actualNode->right);
+    tree->actual = actualNode;  // Actualizar el nodo actual
+    return actualNode->pair->value;
   }
 
   // Si el nodo no tiene un hijo derecho, se busca el primer ancestro mayor
-  TreeNode *parent = currentNode->parent;
-  while (parent != NULL && currentNode == parent->right) {
-    currentNode = parent;
+  TreeNode *parent = actualNode->parent;
+  while (parent != NULL && actualNode == parent->right) {
+    actualNode = parent;
     parent = parent->parent;
   }
 
-  tree->current = parent;  // Actualizar el nodo actual
+  tree->actual = parent;  // Actualizar el nodo actual
   if (parent != NULL)
     return parent->pair->value;
   else

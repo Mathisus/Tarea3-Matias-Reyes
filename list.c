@@ -14,7 +14,7 @@ struct Node {
 struct List {
     Node * head;
     Node * tail;
-    Node * current;
+    Node * actual;
 };
 
 typedef List List;
@@ -31,32 +31,32 @@ Node * createNode(const void * data) {
 List * createList() {
      List * new = (List *)malloc(sizeof(List));
      assert(new != NULL);
-     new->head = new->tail = new->current = NULL;
+     new->head = new->tail = new->actual = NULL;
      return new;
 }
 
 void * firstList(List * list) {
     if (list == NULL || list->head == NULL) return NULL;
-    list->current = list->head;
-    return (void *)list->current->data;
+    list->actual = list->head;
+    return (void *)list->actual->data;
 }
 
 void * nextList(List * list) {
-    if (list == NULL || list->head == NULL || list->current == NULL || list->current->next == NULL) return NULL;
-    list->current = list->current->next;
-    return (void *)list->current->data;
+    if (list == NULL || list->head == NULL || list->actual == NULL || list->actual->next == NULL) return NULL;
+    list->actual = list->actual->next;
+    return (void *)list->actual->data;
 }
 
 void * lastList(List * list) {
     if (list == NULL || list->head == NULL) return NULL;
-    list->current = list->tail;
-    return (void *)list->current->data;
+    list->actual = list->tail;
+    return (void *)list->actual->data;
 }
 
 void * prevList(List * list) {
-    if (list == NULL || list->head == NULL || list->current == NULL || list->current->prev == NULL) return NULL;
-    list->current = list->current->prev;
-    return (void *)list->current->data;
+    if (list == NULL || list->head == NULL || list->actual == NULL || list->actual->prev == NULL) return NULL;
+    list->actual = list->actual->prev;
+    return (void *)list->actual->data;
 }
 
 void pushFront(List * list, const void * data) {
@@ -75,44 +75,44 @@ void pushFront(List * list, const void * data) {
 }
 
 void pushBack(List * list, const void * data) {
-    list->current = list->tail;
-    if(list->current==NULL) pushFront(list,data);
-    else pushCurrent(list,data);
+    list->actual = list->tail;
+    if(list->actual==NULL) pushFront(list,data);
+    else pushactual(list,data);
 }
 
-void pushCurrent(List * list, const void * data) {
-    assert(list != NULL && list->current !=NULL);
+void pushactual(List * list, const void * data) {
+    assert(list != NULL && list->actual !=NULL);
     Node * new = createNode(data);
 
-    if(list->current->next)
-        new->next = list->current->next;
-    new->prev = list->current;
+    if(list->actual->next)
+        new->next = list->actual->next;
+    new->prev = list->actual;
 
-    if(list->current->next)
-        list->current->next->prev = new;
-    list->current->next = new;
+    if(list->actual->next)
+        list->actual->next->prev = new;
+    list->actual->next = new;
 
-    if(list->current==list->tail)
+    if(list->actual==list->tail)
         list->tail=new;
 
 }
 
 void * popFront(List * list) {
-    list->current = list->head;
-    return popCurrent(list);
+    list->actual = list->head;
+    return popactual(list);
 }
 
 void * popBack(List * list) {
-    list->current = list->tail;
-    return popCurrent(list);
+    list->actual = list->tail;
+    return popactual(list);
 }
 
-void * popCurrent(List * list) {
+void * popactual(List * list) {
     assert(list != NULL || list->head != NULL);
     
-    if (list->current == NULL) return NULL;
+    if (list->actual == NULL) return NULL;
     
-    Node * aux = list->current;
+    Node * aux = list->actual;
     
     if (aux->next != NULL) 
         aux->next->prev = aux->prev;
@@ -124,13 +124,13 @@ void * popCurrent(List * list) {
     
     void * data = (void *)aux->data;
     
-    if(list->current == list->tail)
-        list->tail = list->current->prev;
+    if(list->actual == list->tail)
+        list->tail = list->actual->prev;
 
-    if(list->current == list->head)
-        list->head = list->current->next;
+    if(list->actual == list->head)
+        list->head = list->actual->next;
         
-    list->current = aux->prev;
+    list->actual = aux->prev;
 
 
 

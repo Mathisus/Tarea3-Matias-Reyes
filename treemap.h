@@ -17,7 +17,7 @@ typedef struct Pair {
 
 typedef struct TreeMap {
     TreeNode *root;
-    TreeNode *current;
+    TreeNode *actual;
     int (*lower_than) (void* key1, void* key2);
 } TreeMap;
 

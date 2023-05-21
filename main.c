@@ -22,10 +22,10 @@ int lower_than_string(void* key1, void* key2)
     }
 }
 
-void enter_value(char *value, char* mostrarTexto)
+void ingresar_valor(char *value, char* mostrarT)
 {
     puts("-------------------------------");
-    printf("%s\n", mostrarTexto);
+    printf("%s\n", mostrarT);
     puts("-------------------------------");
 
     scanf("%30[^\n]s", value);
@@ -36,7 +36,6 @@ void enter_value(char *value, char* mostrarTexto)
 int main()
 {
     TreeMap *tareas = createTreeMap(lower_than_string);
-
     while(1)
     {
         mostrar_menu();
@@ -54,8 +53,8 @@ int main()
         case 1:
             system("cls");
 
-            enter_value(nombreTarea, "Ingrese el nombre de la tarea");
-            enter_value(prioridad, "Ingrese la prioridad de la tarea");
+            ingresar_valor(nombreTarea, "Ingrese el nombre de la tarea");
+            ingresar_valor(prioridad, "Ingrese la prioridad de la tarea");
 
             agregarTarea(tareas, nombreTarea, prioridad);
 
@@ -66,8 +65,10 @@ int main()
             break;
 
         case 2:
-            enter_value(nombreTarea, "Ingrese el nombre de la tarea");
-            enter_value(precedencia, "Ingrese la tarea de la cual depende");
+
+            system("cls");
+            ingresar_valor(nombreTarea, "Ingrese el nombre de la tarea");
+            ingresar_valor(precedencia, "Ingrese la tarea de la cual depende");
 
             definirPrecedencia(tareas, nombreTarea, precedencia);
 
@@ -87,7 +88,7 @@ int main()
         case 4:
             system("cls");
 
-            enter_value(nombreTarea, "Ingrese el nombre de la tarea");
+            ingresar_valor(nombreTarea, "Ingrese el nombre de la tarea");
 
             tareaRealizada(tareas, nombreTarea);
 
@@ -99,12 +100,16 @@ int main()
 
             system("cls");
             printf("Cerrando programa... ^^\n");
-            sleep(2);
+            sleep(1);
             system("cls");
             exit(0);
             break;
             
         default:
+            system("cls");
+            puts("Opcion invalida, intente otra vez");
+            system("pause");
+            system("cls");
             break;
         }
         

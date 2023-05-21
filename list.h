@@ -17,13 +17,13 @@ void pushFront(List * list, const void * data);
 
 void pushBack(List * list, const void * data);
 
-void pushCurrent(List * list, const void * data);
+void pushactual(List * list, const void * data);
 
 void * popFront(List * list);
 
 void * popBack(List * list);
 
-void * popCurrent(List * list);
+void * popactual(List * list);
 
 void cleanList(List * list);
 
